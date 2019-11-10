@@ -26,8 +26,10 @@ pipeline {
         }
         stage('Push image') {
             steps {
-                docker.withRegistry('264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic', 'ecr:us-west-2:aws-user') {
-                    sh "docker push 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest"
+                script {
+                    docker.withRegistry('264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic', 'ecr:us-west-2:aws-user') {
+                        sh "docker push 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest"
+                    }
                 }
             }
         }
