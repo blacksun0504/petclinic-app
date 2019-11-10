@@ -10,12 +10,14 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId:  'gitlab-credentials', url: 'https://yoko.ukrtux.com/blacksun0504/mbeschekova_aws_project/']]])
             }
         }
+
         stage('Build jar') {
             steps {
                 sh label: '', script: '''cd ${WORKSPACE}/spring-petclinic
                 echo $PWD
                 sleep 10
-                mvn clean package jacoco:report && echo "Build ${BUILD_ID} is OK."
+                mvn clean package && echo "Build ${BUILD_ID} is OK."
+                cat src/target/site/jacoco/*.html
                 '''
             }
         }
