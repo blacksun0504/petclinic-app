@@ -30,7 +30,7 @@
 
     <jacoco.version>0.8.2</jacoco.version>
     <spring.profiles.active>mysql</spring.profiles.active>
-    <maven.test.skip>true</maven.test.skip>
+    <!-- <maven.test.skip>true</maven.test.skip> -->
   </properties>
 
   <dependencies>
