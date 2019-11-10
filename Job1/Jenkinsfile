@@ -39,7 +39,7 @@ pipeline {
     post {
         always {
             echo 'The pipeline run has been finished.'
-            deleteDir() /* clean up the workspace */
+            cleanWs() /* clean up the workspace */
         }
         success {
             echo "Build ${BUILD_ID} is successful."
