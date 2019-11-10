@@ -19,12 +19,16 @@ pipeline {
             }
         }
         stage('Build image') {
-            sh label: '', script: '''
-            docker build -t 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest -f ${WORKSPACE}/Job1/Dockerfile ${WORKSPACE}/spring-petclinic/target'''
+            steps {
+                sh label: '', script: '''
+                docker build -t 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest -f ${WORKSPACE}/Job1/Dockerfile ${WORKSPACE}/spring-petclinic/target'''
+            }
         }
         stage('Push image') {
-            docker.withRegistry('264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic', 'ecr:us-west-2:aws-user') {
-                sh "docker push 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest"
+            steps {
+                docker.withRegistry('264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic', 'ecr:us-west-2:aws-user') {
+                    sh "docker push 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest"
+                }
             }
         }
     }
