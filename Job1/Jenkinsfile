@@ -1,0 +1,45 @@
+pipeline {
+    agent { 
+        label 'jenkins-agent'
+    }
+
+    stages { 
+        stage('Clone repository') {
+            steps {
+                echo "Running on ${NODE_NAME}."
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId:  'gitlab-credentials', url: 'https://yoko.ukrtux.com/blacksun0504/mbeschekova_aws_project/']]])
+            }
+        }
+        stage('Build jar') {
+            steps {
+                sh label: '', script: '''cd ${WORKSPACE}/spring-petclinic
+                echo $PWD
+                sleep 10
+                mvn clean package && echo "Build ${BUILD_ID} is OK."'''
+            }
+        }
+        stage('Build image') {
+            sh label: '', script: '''
+            docker build -t 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest -f ${WORKSPACE}/Job1/Dockerfile ${WORKSPACE}/spring-petclinic/target'''
+        }
+        stage('Push image') {
+            docker.withRegistry('264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic', 'ecr:us-west-2:aws-user') {
+                sh "docker push 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'The pipeline run has been finished.'
+            deleteDir() /* clean up the workspace */
+        }
+        success {
+            echo "Build ${BUILD_ID} is successful."
+        }
+        
+        failure {
+            echo "Build ${BUILD_ID} has failed. :("
+        }
+    }
+}
