@@ -1,0 +1,8 @@
+/**/*tar.gz
+/**/*.war
+/**/*console.log
+.terraform
+*.tfstate
+*.tfstate.backup
+settings.xml
+*.pem
