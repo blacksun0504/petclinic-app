@@ -15,7 +15,8 @@ pipeline {
                 sh label: '', script: '''cd ${WORKSPACE}/spring-petclinic
                 echo $PWD
                 sleep 10
-                mvn clean package && echo "Build ${BUILD_ID} is OK."'''
+                mvn clean package && echo "Build ${BUILD_ID} is OK."
+                cat /home/ubuntu/jenkins/workspace/aws-project-job1/spring-petclinic/target/jacoco.exec'''
             }
         }
         stage('Build image') {
