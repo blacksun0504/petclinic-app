@@ -21,6 +21,7 @@ pipeline {
         stage('Build image') {
             steps {
                 sh label: '', script: '''
+                echo $PWD
                 docker build -t 264800517173.dkr.ecr.us-west-2.amazonaws.com/petclinic:latest -f ${WORKSPACE}/Job1/Dockerfile ${WORKSPACE}/spring-petclinic/target'''
             }
         }
