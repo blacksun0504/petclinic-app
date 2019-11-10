@@ -17,7 +17,6 @@ pipeline {
                 echo $PWD
                 sleep 10
                 mvn clean package && echo "Build ${BUILD_ID} is OK."
-                cat src/target/site/jacoco/*.html
                 '''
             }
         }
