@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.epamlabs.beschekova</groupId>
   <artifactId>petclinic</artifactId>
-  <version>2.1</version>
+  <version>2.2</version>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -147,7 +147,8 @@
             <id>report-aggregate</id>
             <phase>prepare-package</phase>
             <goals>
-              <goal>report</goal>
+              <goal>report-aggregate</goal>
+              <outputDirectory></outputDirectory>
             </goals>
           </execution>
         </executions>
