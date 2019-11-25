@@ -148,7 +148,6 @@
             <phase>prepare-package</phase>
             <goals>
               <goal>report-aggregate</goal>
-              <outputDirectory></outputDirectory>
             </goals>
           </execution>
         </executions>
